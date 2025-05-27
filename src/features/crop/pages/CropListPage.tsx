@@ -1,0 +1,1 @@
+export default function CropListPage() { return <div>Lista de Culturas</div>; }

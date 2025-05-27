@@ -1,0 +1,1 @@
+export default function ProducerFormPage() { return <div>Formulário de Produtor</div>; }

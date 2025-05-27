@@ -1,0 +1,1 @@
+export default function FarmListPage() { return <div>Lista de Fazendas</div>; }

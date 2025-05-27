@@ -1,0 +1,1 @@
+export default function FarmFormPage() { return <div>Formulário de Fazenda</div>; }

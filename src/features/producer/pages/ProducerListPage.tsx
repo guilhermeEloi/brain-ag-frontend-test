@@ -1,0 +1,1 @@
+export default function ProducerListPage() { return <div>Lista de Produtores</div>; }

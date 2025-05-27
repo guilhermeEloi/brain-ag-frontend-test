@@ -1,0 +1,1 @@
+export default function CropFormPage() { return <div>Formulário de Cultura</div>; }
