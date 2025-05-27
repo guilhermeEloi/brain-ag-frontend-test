@@ -1,8 +1,17 @@
+//Assets
+import img404 from "@/assets/404.png";
+
+//Styles
+import { Container, ContainerContentBody, Img404, Text, Title } from "./styles";
+
 export default function NotFoundPage() {
   return (
-    <div style={{ textAlign: "center", padding: "2rem" }}>
-      <h1>404 - Página não encontrada</h1>
-      <p>A página que você procura não existe.</p>
-    </div>
+    <Container>
+      <ContainerContentBody>
+        <Img404 src={img404} alt="Imagem de erro 404" />
+        <Title>Página não encontrada</Title>
+        <Text>A página que você procura não existe.</Text>
+      </ContainerContentBody>
+    </Container>
   );
 }
