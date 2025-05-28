@@ -1,7 +1,5 @@
-//Assets
 import img404 from "@/assets/404.png";
 
-//Styles
 import { Container, ContainerContentBody, Img404, Text, Title } from "./styles";
 
 export default function NotFoundPage() {

@@ -7,7 +7,6 @@ export const Container = styled.div`
   align-items: center;
   background: #fefefe;
   min-height: 100vh;
-  font-family: "Montserrat", sans-serif;
   overflow-x: hidden;
   background-image: url(${bg});
   background-size: cover;
