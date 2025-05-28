@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-import PieChartComponent from "@/components/molecules/PiecChartComponent";
+import PieChartComponent from "@/components/molecules/PieChart";
 import MainLayout from "@/components/organisms/MainLayout";
+
+import type { PieData } from "../types";
 
 import {
   totalFarms as mockTotalFarms,
@@ -9,7 +11,7 @@ import {
   pieChartByState,
   pieChartByCulture,
   pieChartByLandUse,
-} from "@/services/mocks/mocks";
+} from "@/services/mocks/dashboardData";
 
 import {
   PageTitle,
@@ -22,17 +24,6 @@ import {
   GraphTitle,
   GraphContent,
 } from "./styles";
-
-interface PieItem {
-  name: string;
-  value: number;
-}
-
-interface PieData {
-  porEstado: PieItem[];
-  porCultura: PieItem[];
-  usoSolo: PieItem[];
-}
 
 export default function DashboardPage() {
   const [totalFarms, setTotalFarms] = useState(0);

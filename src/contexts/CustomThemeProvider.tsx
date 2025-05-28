@@ -19,7 +19,16 @@ export const CustomThemeProvider = ({ children }: { children: ReactNode }) => {
     [mode]
   );
 
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: { mode },
+        typography: {
+          fontFamily: '"Montserrat", sans-serif',
+        },
+      }),
+    [mode]
+  );
 
   return (
     <ColorModeContext.Provider value={colorMode}>

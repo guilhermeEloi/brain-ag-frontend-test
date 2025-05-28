@@ -15,7 +15,7 @@ interface PieChartComponentProps {
   data: { name: string; value: number }[];
 }
 
-export default function PieChartComponent({ data }: PieChartComponentProps) {
+export default function PieChart({ data }: PieChartComponentProps) {
   const chartData = useMemo(() => {
     return {
       labels: data.map((item) => item.name),
