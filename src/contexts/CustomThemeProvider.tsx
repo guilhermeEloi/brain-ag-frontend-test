@@ -26,6 +26,15 @@ export const CustomThemeProvider = ({ children }: { children: ReactNode }) => {
         typography: {
           fontFamily: '"Montserrat", sans-serif',
         },
+        components: {
+          MuiDrawer: {
+            styleOverrides: {
+              paper: {
+                backgroundColor: mode === "light" ? "#ffffff" : "#2A3244",
+              },
+            },
+          },
+        },
       }),
     [mode]
   );

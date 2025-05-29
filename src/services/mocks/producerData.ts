@@ -14,6 +14,16 @@ export const mockProducers = [
         vegetationArea: 150,
         crops: [{ harvest: "Safra 2023", culture: "Soja" }],
       },
+      {
+        id: 102,
+        name: "Fazenda Primavera Verde",
+        city: "Apucarana",
+        state: "Paraná",
+        totalArea: 650,
+        agricultableArea: 450,
+        vegetationArea: 200,
+        crops: [{ harvest: "Safra 2022", culture: "Soja" }],
+      },
     ],
   },
   {
@@ -22,7 +32,7 @@ export const mockProducers = [
     document: "12.345.678/0001-90",
     farms: [
       {
-        id: 102,
+        id: 103,
         name: "Fazenda Horizonte",
         city: "Uberlândia",
         state: "Minas Gerais",
@@ -39,7 +49,7 @@ export const mockProducers = [
     document: "321.987.654-00",
     farms: [
       {
-        id: 103,
+        id: 104,
         name: "Fazenda Esperança",
         city: "Londrina",
         state: "Paraná",
@@ -56,7 +66,7 @@ export const mockProducers = [
     document: "98.765.432/0001-12",
     farms: [
       {
-        id: 104,
+        id: 105,
         name: "Fazenda Verde",
         city: "Cuiabá",
         state: "Mato Grosso",
@@ -64,6 +74,26 @@ export const mockProducers = [
         agricultableArea: 700,
         vegetationArea: 200,
         crops: [{ harvest: "Safra 2022", culture: "Algodão" }],
+      },
+      {
+        id: 106,
+        name: "Fazenda Vitória",
+        city: "Maringá",
+        state: "Paraná",
+        totalArea: 700,
+        agricultableArea: 500,
+        vegetationArea: 200,
+        crops: [{ harvest: "Safra 2023", culture: "Milho" }],
+      },
+      {
+        id: 107,
+        name: "Fazenda Primavera Verde",
+        city: "Apucarana",
+        state: "Paraná",
+        totalArea: 650,
+        agricultableArea: 450,
+        vegetationArea: 200,
+        crops: [{ harvest: "Safra 2022", culture: "Soja" }],
       },
     ],
   },
@@ -73,7 +103,7 @@ export const mockProducers = [
     document: "789.456.123-00",
     farms: [
       {
-        id: 105,
+        id: 108,
         name: "Fazenda Santa Luzia",
         city: "Campinas",
         state: "São Paulo",
@@ -90,7 +120,7 @@ export const mockProducers = [
     document: "45.678.912/0001-34",
     farms: [
       {
-        id: 106,
+        id: 109,
         name: "Fazenda Nova",
         city: "Araçatuba",
         state: "São Paulo",
@@ -107,7 +137,7 @@ export const mockProducers = [
     document: "963.852.741-00",
     farms: [
       {
-        id: 107,
+        id: 110,
         name: "Fazenda Estrela",
         city: "Divinópolis",
         state: "Minas Gerais",
@@ -115,6 +145,16 @@ export const mockProducers = [
         agricultableArea: 450,
         vegetationArea: 150,
         crops: [{ harvest: "Safra 2021", culture: "Cana-de-açúcar" }],
+      },
+      {
+        id: 111,
+        name: "Fazenda Rio Claro",
+        city: "Sorriso",
+        state: "Mato Grosso",
+        totalArea: 700,
+        agricultableArea: 550,
+        vegetationArea: 150,
+        crops: [{ harvest: "Safra 2023", culture: "Soja" }],
       },
     ],
   },
@@ -124,14 +164,14 @@ export const mockProducers = [
     document: "67.890.123/0001-56",
     farms: [
       {
-        id: 108,
-        name: "Fazenda Vitória",
-        city: "Maringá",
+        id: 112,
+        name: "Fazenda Vale Dourado",
+        city: "Londrina",
         state: "Paraná",
-        totalArea: 700,
-        agricultableArea: 500,
+        totalArea: 730,
+        agricultableArea: 530,
         vegetationArea: 200,
-        crops: [{ harvest: "Safra 2023", culture: "Milho" }],
+        crops: [{ harvest: "Safra 2021", culture: "Milho" }],
       },
     ],
   },
@@ -141,7 +181,7 @@ export const mockProducers = [
     document: "159.753.486-00",
     farms: [
       {
-        id: 109,
+        id: 113,
         name: "Fazenda Bela Vista",
         city: "Sinop",
         state: "Mato Grosso",
@@ -149,6 +189,16 @@ export const mockProducers = [
         agricultableArea: 850,
         vegetationArea: 150,
         crops: [{ harvest: "Safra 2022", culture: "Algodão" }],
+      },
+      {
+        id: 114,
+        name: "Fazenda Recanto Feliz",
+        city: "Lucas do Rio Verde",
+        state: "Mato Grosso",
+        totalArea: 600,
+        agricultableArea: 450,
+        vegetationArea: 150,
+        crops: [{ harvest: "Safra 2023", culture: "Cana-de-açúcar" }],
       },
     ],
   },
@@ -158,7 +208,7 @@ export const mockProducers = [
     document: "753.159.486-00",
     farms: [
       {
-        id: 110,
+        id: 115,
         name: "Fazenda Aurora",
         city: "Araraquara",
         state: "São Paulo",
@@ -166,6 +216,26 @@ export const mockProducers = [
         agricultableArea: 400,
         vegetationArea: 150,
         crops: [{ harvest: "Safra 2023", culture: "Soja" }],
+      },
+      {
+        id: 116,
+        name: "Fazenda Horizonte Claro",
+        city: "Jaboticabal",
+        state: "São Paulo",
+        totalArea: 400,
+        agricultableArea: 300,
+        vegetationArea: 100,
+        crops: [{ harvest: "Safra 2022", culture: "Milho" }],
+      },
+      {
+        id: 117,
+        name: "Fazenda Campo Verde",
+        city: "São Carlos",
+        state: "São Paulo",
+        totalArea: 600,
+        agricultableArea: 450,
+        vegetationArea: 150,
+        crops: [{ harvest: "Safra 2021", culture: "Cana-de-açúcar" }],
       },
     ],
   },
@@ -175,7 +245,7 @@ export const mockProducers = [
     document: "321.654.987-00",
     farms: [
       {
-        id: 111,
+        id: 118,
         name: "Fazenda Primavera",
         city: "Uberaba",
         state: "Minas Gerais",
@@ -183,6 +253,16 @@ export const mockProducers = [
         agricultableArea: 380,
         vegetationArea: 100,
         crops: [{ harvest: "Safra 2021", culture: "Cana-de-açúcar" }],
+      },
+      {
+        id: 119,
+        name: "Fazenda Céu Azul",
+        city: "Uberlândia",
+        state: "Minas Gerais",
+        totalArea: 500,
+        agricultableArea: 400,
+        vegetationArea: 100,
+        crops: [{ harvest: "Safra 2023", culture: "Soja" }],
       },
     ],
   },
@@ -192,14 +272,14 @@ export const mockProducers = [
     document: "456.789.123-00",
     farms: [
       {
-        id: 112,
-        name: "Fazenda Horizonte Azul",
-        city: "Cascavel",
+        id: 120,
+        name: "Fazenda Morada Nova",
+        city: "Toledo",
         state: "Paraná",
-        totalArea: 640,
-        agricultableArea: 500,
-        vegetationArea: 140,
-        crops: [{ harvest: "Safra 2022", culture: "Milho" }],
+        totalArea: 580,
+        agricultableArea: 430,
+        vegetationArea: 150,
+        crops: [{ harvest: "Safra 2023", culture: "Algodão" }],
       },
     ],
   },
@@ -209,7 +289,7 @@ export const mockProducers = [
     document: "987.321.654-00",
     farms: [
       {
-        id: 113,
+        id: 121,
         name: "Fazenda Céu Claro",
         city: "Várzea Grande",
         state: "Mato Grosso",
@@ -217,6 +297,16 @@ export const mockProducers = [
         agricultableArea: 900,
         vegetationArea: 200,
         crops: [{ harvest: "Safra 2023", culture: "Algodão" }],
+      },
+      {
+        id: 122,
+        name: "Fazenda São Miguel",
+        city: "Rondonópolis",
+        state: "Mato Grosso",
+        totalArea: 950,
+        agricultableArea: 800,
+        vegetationArea: 150,
+        crops: [{ harvest: "Safra 2022", culture: "Milho" }],
       },
     ],
   },
@@ -226,7 +316,7 @@ export const mockProducers = [
     document: "654.987.321-00",
     farms: [
       {
-        id: 114,
+        id: 123,
         name: "Fazenda Ouro Verde",
         city: "Piracicaba",
         state: "São Paulo",
@@ -234,6 +324,16 @@ export const mockProducers = [
         agricultableArea: 300,
         vegetationArea: 90,
         crops: [{ harvest: "Safra 2022", culture: "Soja" }],
+      },
+      {
+        id: 124,
+        name: "Fazenda São Pedro",
+        city: "Limeira",
+        state: "São Paulo",
+        totalArea: 420,
+        agricultableArea: 320,
+        vegetationArea: 100,
+        crops: [{ harvest: "Safra 2021", culture: "Milho" }],
       },
     ],
   },
@@ -243,7 +343,7 @@ export const mockProducers = [
     document: "74.185.296/0001-00",
     farms: [
       {
-        id: 115,
+        id: 125,
         name: "Fazenda Campo Limpo",
         city: "Patos de Minas",
         state: "Minas Gerais",

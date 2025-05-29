@@ -1,0 +1,26 @@
+import { TextField } from "@mui/material";
+import type { InputProps } from "./types";
+
+const Input = ({
+  label,
+  name,
+  value,
+  onChange,
+  variant,
+  required,
+}: InputProps) => {
+  return (
+    <TextField
+      label={label}
+      name={name}
+      value={value}
+      onChange={onChange}
+      fullWidth
+      required={required}
+      variant={variant}
+      margin="normal"
+    />
+  );
+};
+
+export default Input;

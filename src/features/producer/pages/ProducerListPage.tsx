@@ -14,7 +14,7 @@ import {
   ContainerTableContent,
   PageTitle,
 } from "../styles/stylesProducerListPage";
-import { mapProducersToTableRows } from "../utils";
+import { mapProducersToTableRows } from "@/utils";
 import type { ProducerTableRow } from "../types";
 import Button from "@/components/atoms/Button";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ export default function ProducerListPage() {
       <ContainerTableAndBtn>
         <ContainerBtn>
           <Button
-            varint="contained"
+            variant="contained"
             label="Novo produtor"
             onClick={() => navigate("/producers/new")}
           />

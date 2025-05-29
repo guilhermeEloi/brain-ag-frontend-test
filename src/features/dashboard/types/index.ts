@@ -4,7 +4,7 @@ export interface PieItem {
 }
 
 export interface PieData {
-  porEstado: PieItem[];
-  porCultura: PieItem[];
-  usoSolo: PieItem[];
+  perState: PieItem[];
+  perCulture: PieItem[];
+  landUse: PieItem[];
 }

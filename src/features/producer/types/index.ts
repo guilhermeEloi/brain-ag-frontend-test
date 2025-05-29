@@ -14,3 +14,11 @@ export interface ProducerTableRow {
   totalFarms: number;
   totalArea: number;
 }
+
+export interface ProducerForm {
+  name: string;
+  document: string;
+  phone: string;
+  email: string;
+  documentType: string;
+}
