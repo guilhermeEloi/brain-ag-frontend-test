@@ -2,7 +2,10 @@ export const mockProducers = [
   {
     id: 1,
     name: "João da Silva",
-    document: "123.456.789-00",
+    documentType: "CPF",
+    document: "653.181.830-18",
+    phone: "(16) 99123-4567",
+    email: "joao.silva@email.com",
     farms: [
       {
         id: 101,
@@ -29,7 +32,10 @@ export const mockProducers = [
   {
     id: 2,
     name: "Agro Horizonte Ltda",
-    document: "12.345.678/0001-90",
+    documentType: "CNPJ",
+    document: "93.390.936/0001-57",
+    phone: "(34) 3232-4545",
+    email: "contato@agrohorizonte.com.br",
     farms: [
       {
         id: 103,
@@ -46,7 +52,10 @@ export const mockProducers = [
   {
     id: 3,
     name: "Carlos Souza",
-    document: "321.987.654-00",
+    documentType: "CPF",
+    document: "452.408.080-58",
+    phone: "(43) 99987-6543",
+    email: "carlos.souza@gmail.com",
     farms: [
       {
         id: 104,
@@ -63,7 +72,10 @@ export const mockProducers = [
   {
     id: 4,
     name: "Verde Mato Agropecuária S/A",
-    document: "98.765.432/0001-12",
+    documentType: "CNPJ",
+    document: "79.118.243/0001-89",
+    phone: "(65) 3344-2211",
+    email: "contato@verdematoagro.com.br",
     farms: [
       {
         id: 105,
@@ -100,7 +112,10 @@ export const mockProducers = [
   {
     id: 5,
     name: "Fernando Costa",
-    document: "789.456.123-00",
+    documentType: "CPF",
+    document: "872.740.120-02",
+    phone: "(19) 99887-6655",
+    email: "fernando.costa@hotmail.com",
     farms: [
       {
         id: 108,
@@ -117,7 +132,10 @@ export const mockProducers = [
   {
     id: 6,
     name: "Rocha Agro Industrial Ltda",
-    document: "45.678.912/0001-34",
+    documentType: "CNPJ",
+    document: "27.228.823/0001-25",
+    phone: "(18) 3621-3344",
+    email: "contato@rochaagro.com.br",
     farms: [
       {
         id: 109,
@@ -134,7 +152,10 @@ export const mockProducers = [
   {
     id: 7,
     name: "Ricardo Almeida",
-    document: "963.852.741-00",
+    documentType: "CPF",
+    document: "895.106.860-93",
+    phone: "(37) 99876-5544",
+    email: "ricardo.almeida@gmail.com",
     farms: [
       {
         id: 110,
@@ -161,7 +182,10 @@ export const mockProducers = [
   {
     id: 8,
     name: "Patrícia Lima",
-    document: "67.890.123/0001-56",
+    documentType: "CNPJ",
+    document: "34.590.401/0001-60",
+    phone: "(43) 3345-2211",
+    email: "patricia.lima@agropecuaria.com",
     farms: [
       {
         id: 112,
@@ -178,7 +202,8 @@ export const mockProducers = [
   {
     id: 9,
     name: "Luiz Henrique",
-    document: "159.753.486-00",
+    documentType: "CPF",
+    document: "608.358.700-06",
     farms: [
       {
         id: 113,
@@ -205,7 +230,8 @@ export const mockProducers = [
   {
     id: 10,
     name: "Sandra Meireles",
-    document: "753.159.486-00",
+    documentType: "CPF",
+    document: "608.358.700-06",
     farms: [
       {
         id: 115,
@@ -242,7 +268,8 @@ export const mockProducers = [
   {
     id: 11,
     name: "Roberto Nunes",
-    document: "321.654.987-00",
+    documentType: "CPF",
+    document: "724.007.640-77",
     farms: [
       {
         id: 118,
@@ -269,7 +296,8 @@ export const mockProducers = [
   {
     id: 12,
     name: "Tatiane Duarte",
-    document: "456.789.123-00",
+    documentType: "CPF",
+    document: "652.041.410-73",
     farms: [
       {
         id: 120,
@@ -286,7 +314,8 @@ export const mockProducers = [
   {
     id: 13,
     name: "Marcelo Vieira",
-    document: "987.321.654-00",
+    documentType: "CPF",
+    document: "617.426.780-68",
     farms: [
       {
         id: 121,
@@ -313,7 +342,8 @@ export const mockProducers = [
   {
     id: 14,
     name: "Camila Souza",
-    document: "654.987.321-00",
+    documentType: "CPF",
+    document: "349.368.860-17",
     farms: [
       {
         id: 123,
@@ -340,7 +370,8 @@ export const mockProducers = [
   {
     id: 15,
     name: "Pacheco Agropecuária Ltda",
-    document: "74.185.296/0001-00",
+    documentType: "CNPJ",
+    document: "70.437.774/0001-60",
     farms: [
       {
         id: 125,

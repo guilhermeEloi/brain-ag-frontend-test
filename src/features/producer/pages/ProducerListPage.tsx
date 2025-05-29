@@ -49,7 +49,7 @@ export default function ProducerListPage() {
               {
                 icon: <EditIcon color="primary" />,
                 label: "Editar",
-                onClick: (row) => console.log("Editar", row),
+                onClick: (row) => navigate(`/producers/edit/${row.id}`),
               },
               {
                 icon: <DeleteIcon color="error" />,

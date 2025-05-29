@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import MainLayout from "@/components/organisms/MainLayout";
 import Input from "@/components/atoms/Input";
@@ -26,8 +26,9 @@ import {
   FormActions,
   FormRow,
 } from "../styles/stylesProducerFormPage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { mockProducers } from "@/services/mocks/producerData";
 
 export default function ProducerFormPage() {
   const [formData, setFormData] = useState<ProducerForm>({
@@ -37,11 +38,13 @@ export default function ProducerFormPage() {
     email: "",
     documentType: "CPF",
   });
+  const [isEditing, setIsEditing] = useState(false);
   const [nameInputError, setNameInputError] = useState<boolean>(false);
   const [documentInputError, setDocumentInputError] = useState<boolean>(false);
   const [emailInputError, setEmailInputError] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   const handleChange = (
     e:
@@ -109,9 +112,31 @@ export default function ProducerFormPage() {
       return;
     }
 
-    toast.success("Produtor cadastrado!");
-    console.log("Dados do produtor:", formData);
+    if (isEditing) {
+      toast.success("Produtor editado!");
+      console.log("Editando produtor:", formData);
+    } else {
+      toast.success("Produtor cadastrado!");
+      console.log("Criando produtor:", formData);
+    }
   };
+
+  useEffect(() => {
+    if (id) {
+      const idNumber = Number(id);
+      setIsEditing(true);
+      const producer = mockProducers.find((p) => p.id === idNumber);
+      if (producer) {
+        setFormData({
+          name: producer.name,
+          document: producer.document,
+          phone: producer.phone || "",
+          email: producer.email || "",
+          documentType: producer.documentType || "CPF",
+        });
+      }
+    }
+  }, [id]);
 
   return (
     <MainLayout>
@@ -188,7 +213,7 @@ export default function ProducerFormPage() {
               <FormButton
                 type="submit"
                 variant="contained"
-                label="Cadastrar"
+                label={isEditing ? "Editar" : "Cadastrar"}
                 style={{ minWidth: "120px" }}
               />
               <Button

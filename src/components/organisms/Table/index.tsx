@@ -64,7 +64,9 @@ const DynamicTable = <T extends { id: number | string }>({
                   key={String(col.accessor)}
                   style={{ fontSize: "1rem", fontWeight: 500 }}
                 >
-                  {String(row[col.accessor])}
+                  {row[col.accessor] != null && row[col.accessor] !== ""
+                    ? String(row[col.accessor])
+                    : "-"}
                 </TableCell>
               ))}
               {actions.length > 0 && (

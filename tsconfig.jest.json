@@ -3,6 +3,10 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "verbatimModuleSyntax": false,
-    "types": ["jest"]
+    "types": ["jest"],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   }
 }
