@@ -5,4 +5,8 @@ export interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   variant: "filled" | "outlined" | "standard";
+  disabled?: boolean;
+  length?: number;
+  error?: boolean;
+  helperText?: string | null;
 }

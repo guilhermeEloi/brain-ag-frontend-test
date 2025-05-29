@@ -8,6 +8,10 @@ const Input = ({
   onChange,
   variant,
   required,
+  disabled,
+  length,
+  error,
+  helperText,
 }: InputProps) => {
   return (
     <TextField
@@ -19,6 +23,15 @@ const Input = ({
       required={required}
       variant={variant}
       margin="normal"
+      disabled={disabled}
+      error={error}
+      helperText={helperText}
+      inputProps={{
+        form: {
+          autoComplete: "off",
+        },
+        maxLength: length || "none",
+      }}
     />
   );
 };

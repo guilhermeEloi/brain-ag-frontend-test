@@ -16,7 +16,6 @@ import {
   maskCNPJ,
   maskPhone,
   maskCellphone,
-  maskEmail,
 } from "@/utils";
 
 import { PageTitle } from "../styles/stylesProducerListPage";
@@ -28,6 +27,7 @@ import {
   FormRow,
 } from "../styles/stylesProducerFormPage";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ProducerFormPage() {
   const [formData, setFormData] = useState<ProducerForm>({
@@ -37,6 +37,9 @@ export default function ProducerFormPage() {
     email: "",
     documentType: "CPF",
   });
+  const [nameInputError, setNameInputError] = useState<boolean>(false);
+  const [documentInputError, setDocumentInputError] = useState<boolean>(false);
+  const [emailInputError, setEmailInputError] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -47,6 +50,9 @@ export default function ProducerFormPage() {
   ) => {
     const name = e.target.name || "";
     let value = e.target.value as string;
+    setNameInputError(false);
+    setDocumentInputError(false);
+    setEmailInputError(false);
 
     if (name === "document") {
       if (formData.documentType === "CPF") {
@@ -65,10 +71,6 @@ export default function ProducerFormPage() {
       }
     }
 
-    if (name === "email") {
-      value = maskEmail(value);
-    }
-
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -77,11 +79,18 @@ export default function ProducerFormPage() {
 
     const onlyNumbers = (str: string) => str.replace(/\D/g, "");
 
+    if (formData.name === "") {
+      toast.error("O nome do produtor não pode estar vazio");
+      setNameInputError(true);
+      return;
+    }
+
     if (
       formData.documentType === "CPF" &&
       !isValidCPF(onlyNumbers(formData.document))
     ) {
-      alert("CPF inválido");
+      setDocumentInputError(true);
+      toast.error("Número de CPF inválido");
       return;
     }
 
@@ -89,15 +98,18 @@ export default function ProducerFormPage() {
       formData.documentType === "CNPJ" &&
       !isValidCNPJ(onlyNumbers(formData.document))
     ) {
-      alert("CNPJ inválido");
+      setDocumentInputError(true);
+      toast.error("Número de CNPJ inválido");
       return;
     }
 
     if (formData.email && !isValidEmail(formData.email)) {
-      alert("Email inválido");
+      setEmailInputError(true);
+      toast.error("Email inválido");
       return;
     }
 
+    toast.success("Produtor cadastrado!");
     console.log("Dados do produtor:", formData);
   };
 
@@ -115,6 +127,10 @@ export default function ProducerFormPage() {
                   value={formData.name}
                   onChange={handleChange}
                   variant="outlined"
+                  error={nameInputError}
+                  helperText={
+                    nameInputError ? "O nome não pode estar vazio" : null
+                  }
                   required
                 />
                 <Select
@@ -135,6 +151,15 @@ export default function ProducerFormPage() {
                   value={formData.document}
                   onChange={handleChange}
                   variant="outlined"
+                  length={14}
+                  error={documentInputError}
+                  helperText={
+                    documentInputError && formData.documentType === "CPF"
+                      ? "CPF inválido"
+                      : documentInputError && formData.documentType === "CNPJ"
+                      ? "CNPJ inválido"
+                      : null
+                  }
                   required
                 />
               </FormRow>
@@ -145,6 +170,7 @@ export default function ProducerFormPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   variant="outlined"
+                  length={14}
                 />
 
                 <Input
@@ -153,6 +179,8 @@ export default function ProducerFormPage() {
                   value={formData.email}
                   onChange={handleChange}
                   variant="outlined"
+                  error={emailInputError}
+                  helperText={emailInputError ? "Email inválido" : null}
                 />
               </FormRow>
             </div>
