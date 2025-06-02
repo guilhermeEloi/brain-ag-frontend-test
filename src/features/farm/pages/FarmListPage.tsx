@@ -96,7 +96,7 @@ export default function FarmListPage() {
         title="Confirmar Exclusão"
         content={
           <p style={{ color: mode === "light" ? "#000000" : "#ffffff" }}>
-            Tem certeza de que deseja excluir o produtor{" "}
+            Tem certeza de que deseja excluir a fazenda{" "}
             <strong>{selectedRow?.name}</strong>{" "}
           </p>
         }
