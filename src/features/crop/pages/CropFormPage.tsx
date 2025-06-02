@@ -132,26 +132,34 @@ export default function CropFormPage() {
 
   useEffect(() => {
     if (id) {
-      const farmId = Number(id);
+      const cropId = Number(id);
 
-      const producer = producers.find((p: any) =>
-        p.farms.some((f: any) => f.id === farmId)
-      );
+      let foundProducer: any = null;
+      let foundFarm: any = null;
+      let foundCrop: any = null;
 
-      if (producer) {
-        const farm = producer.farms.find((f: any) => f.id === farmId);
-        const crop = farm?.crops?.[0];
-
-        if (farm && crop) {
-          setIsEditing(true);
-          setFormData({
-            producerId: producer.id,
-            farmId: farm.id,
-            cropId: crop.id,
-            culture: crop.culture,
-            harvest: crop.harvest,
-          });
+      for (const producer of producers) {
+        for (const farm of producer.farms) {
+          const crop = farm.crops.find((c: any) => c.id === cropId);
+          if (crop) {
+            foundProducer = producer;
+            foundFarm = farm;
+            foundCrop = crop;
+            break;
+          }
         }
+        if (foundCrop) break;
+      }
+
+      if (foundProducer && foundFarm && foundCrop) {
+        setIsEditing(true);
+        setFormData({
+          producerId: foundProducer.id,
+          farmId: foundFarm.id,
+          cropId: foundCrop.id,
+          culture: foundCrop.culture,
+          harvest: foundCrop.harvest,
+        });
       }
     }
   }, [id, producers]);
@@ -177,7 +185,9 @@ export default function CropFormPage() {
                 <Select
                   label="Produtor"
                   name="producerId"
-                  value={String(formData.producerId)}
+                  value={
+                    formData.producerId === 0 ? "" : String(formData.producerId)
+                  }
                   onChange={handleChange}
                   options={producersOptions}
                   disabled={isEditing === true ? true : false}

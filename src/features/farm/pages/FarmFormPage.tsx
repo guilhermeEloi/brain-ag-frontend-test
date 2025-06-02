@@ -111,7 +111,7 @@ export default function FarmFormPage() {
       return;
     }
 
-    if (formData.name.trim() === "") {
+    if (formData.name === "") {
       toast.error("O campo Nome da Fazenda não pode estar vazio!");
       setNameInputError(true);
       return;
