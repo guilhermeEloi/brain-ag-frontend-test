@@ -1,4 +1,4 @@
-# brain-ag-frontend-test
+# Brain Agriculture Frontend Test
 
 Frontend para teste técnico Brain AG.
 
