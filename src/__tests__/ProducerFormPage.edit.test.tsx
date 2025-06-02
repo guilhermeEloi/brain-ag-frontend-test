@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomThemeProvider } from "@/contexts/CustomThemeProvider";
 import ProducerFormPage from "@/features/producer/pages/ProducerFormPage";
+import { store } from "@/redux/store";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -132,14 +134,17 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const renderPage = () =>
-  render(
-    <BrowserRouter>
-      <CustomThemeProvider>
-        <ProducerFormPage />
-      </CustomThemeProvider>
-    </BrowserRouter>
+const renderPage = () => {
+  return render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <CustomThemeProvider>
+          <ProducerFormPage />
+        </CustomThemeProvider>
+      </BrowserRouter>
+    </Provider>
   );
+};
 
 describe("ProducerFormPage - Editing", () => {
   it("should load producer data and edit successfully", async () => {
