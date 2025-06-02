@@ -1,54 +1,89 @@
-# React + TypeScript + Vite
+# brain-ag-frontend-test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend para teste técnico Brain AG.
 
-Currently, two official plugins are available:
+## Visão Geral
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto é uma aplicação frontend desenvolvida em React 19, utilizando TypeScript, Vite como bundler, Material UI para componentes visuais, Redux Toolkit para gerenciamento de estado e Chart.js para gráficos. O projeto inclui também testes automatizados com Jest e React Testing Library.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tecnologias Principais
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- React 19
+- TypeScript
+- Vite
+- Material UI (MUI)
+- Redux Toolkit
+- Chart.js e react-chartjs-2
+- Styled Components e Emotion
+- React Router DOM
+- React Toastify
+- Jest + React Testing Library para testes
+- ESLint para linting
+
+---
+
+## Como rodar o projeto
+
+### Pré-requisitos
+
+- Node.js (versão recomendada: 18+)
+- npm ou yarn
+
+### Passos
+
+1. Clone o repositório:
+
+```bash
+git clone <url-do-repositorio>
+cd brain-ag-frontend-test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instale as dependências:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
+# ou
+yarn install
 ```
+
+3. Rode o servidor de desenvolvimento:
+
+```bash
+npm run dev
+# ou
+yarn dev
+```
+
+4. Abra no navegador em [http://localhost:5173](http://localhost:5173)
+
+---
+
+## Rodando testes
+
+Para rodar os testes automatizados, use:
+
+```bash
+npm run test
+# ou
+yarn test
+```
+
+## Rodando testes
+
+Para rodar os testes automatizados, use:
+
+```bash
+npm run test
+# ou
+yarn test
+```
+
+---
+
+## Deploy
+
+Este projeto está publicado e disponível online no Vercel.
+
+🔗 [Acesse o projeto aqui](https://brain-ag-frontend-test.vercel.app/dashboard)
