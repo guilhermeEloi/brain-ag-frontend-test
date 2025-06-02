@@ -10,3 +10,25 @@ export interface Farm {
   vegetationArea: number;
   crops: Crop[];
 }
+
+export interface FarmTableRow {
+  id: number;
+  producerName: string;
+  name: string;
+  city: string;
+  state: string;
+  totalArea: number;
+  agricultableArea: number;
+  vegetationArea: number;
+  totalCrops: number;
+}
+
+export interface FarmForm {
+  producerId: number;
+  name: string;
+  city: string;
+  state: string;
+  totalArea: number;
+  agricultableArea: number;
+  vegetationArea: number;
+}

@@ -12,6 +12,7 @@ const Input = ({
   length,
   error,
   helperText,
+  type,
 }: InputProps) => {
   return (
     <TextField
@@ -26,6 +27,7 @@ const Input = ({
       disabled={disabled}
       error={error}
       helperText={helperText}
+      type={type ? type : "text"}
       inputProps={{
         form: {
           autoComplete: "off",

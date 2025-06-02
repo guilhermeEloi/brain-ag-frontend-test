@@ -1,7 +1,7 @@
 export interface InputProps {
   label: string;
   name: string;
-  value: string;
+  value: string | number | undefined;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   variant: "filled" | "outlined" | "standard";
@@ -9,4 +9,5 @@ export interface InputProps {
   length?: number;
   error?: boolean;
   helperText?: string | null;
+  type?: string;
 }

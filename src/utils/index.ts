@@ -1,4 +1,10 @@
 import type { Producer, ProducerTableRow } from "@/features/producer/types";
+import type { FarmTableRow } from "@/features/farm/types";
+import type { CropTableRow } from "@/features/crop/types";
+
+export interface FarmTableRowWithProducer extends FarmTableRow {
+  producerName: string;
+}
 
 export function mapProducersToTableRows(
   producers: Producer[]
@@ -13,6 +19,38 @@ export function mapProducersToTableRows(
     totalFarms: p.farms.length,
     totalArea: p.farms.reduce((acc, farm) => acc + farm.totalArea, 0),
   }));
+}
+
+export function mapFarmsWithProducerToTableRows(
+  producers: Producer[]
+): FarmTableRowWithProducer[] {
+  return producers.flatMap((producer) =>
+    producer.farms.map((farm) => ({
+      id: farm.id,
+      name: farm.name,
+      city: farm.city,
+      state: farm.state,
+      totalArea: farm.totalArea,
+      agricultableArea: farm.agricultableArea,
+      vegetationArea: farm.vegetationArea,
+      totalCrops: farm.crops.length,
+      producerName: producer.name,
+    }))
+  );
+}
+
+export function mapCropsToTableRows(producers: Producer[]): CropTableRow[] {
+  return producers.flatMap((producer) =>
+    producer.farms.flatMap((farm) =>
+      farm.crops.map((crop) => ({
+        id: farm.id,
+        harvest: crop.harvest,
+        culture: crop.culture,
+        farmName: farm.name,
+        producerName: producer.name,
+      }))
+    )
+  );
 }
 
 export function isValidCPF(cpf: string): boolean {

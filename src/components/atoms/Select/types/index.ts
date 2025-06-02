@@ -1,12 +1,12 @@
-export interface SelectOption {
+export interface SelectOption<T = string | number> {
   label: string;
-  value: string;
+  value: T;
 }
 
-export interface SelectProps {
+export interface SelectProps<T = string | number> {
   label: string;
   name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void;
-  options: SelectOption[];
+  value: T;
+  onChange: (e: React.ChangeEvent<{ name?: string; value: T }>) => void;
+  options: SelectOption<T>[];
 }

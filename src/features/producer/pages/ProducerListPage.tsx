@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import MainLayout from "@/components/organisms/MainLayout";
 import DynamicTable from "@/components/organisms/Table";
+import Button from "@/components/atoms/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import type { ProducerTableRow } from "../types";
+
 import { producerTableColumns } from "../configs";
+import { mapProducersToTableRows } from "@/utils";
 import { mockProducers } from "@/services/mocks/producerData";
 
 import {
@@ -14,10 +19,6 @@ import {
   ContainerTableContent,
   PageTitle,
 } from "../styles/stylesProducerListPage";
-import { mapProducersToTableRows } from "@/utils";
-import type { ProducerTableRow } from "../types";
-import Button from "@/components/atoms/Button";
-import { useNavigate } from "react-router-dom";
 
 export default function ProducerListPage() {
   const [tableData, setTableData] = useState<ProducerTableRow[]>([]);

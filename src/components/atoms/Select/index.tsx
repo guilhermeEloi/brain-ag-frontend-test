@@ -7,27 +7,33 @@ import {
 import type { SelectChangeEvent } from "@mui/material";
 import type { SelectProps } from "./types";
 
-const Select = ({ label, name, value, onChange, options }: SelectProps) => {
-  const handleChange = (event: SelectChangeEvent<string>) => {
+const Select = <T extends string | number>({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+}: SelectProps<T>) => {
+  const handleChange = (event: SelectChangeEvent<T>) => {
     onChange({
       target: {
         name: event.target.name!,
         value: event.target.value,
       },
-    } as React.ChangeEvent<HTMLInputElement>);
+    } as React.ChangeEvent<{ name?: string; value: T }>);
   };
 
   return (
     <FormControl fullWidth margin="normal">
       <InputLabel>{label}</InputLabel>
-      <MuiSelect
+      <MuiSelect<T>
         label={label}
         name={name}
         value={value}
         onChange={handleChange}
       >
         {options.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
+          <MenuItem key={String(option.value)} value={option.value}>
             {option.label}
           </MenuItem>
         ))}

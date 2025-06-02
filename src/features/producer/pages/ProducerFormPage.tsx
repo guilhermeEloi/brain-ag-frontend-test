@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
 import MainLayout from "@/components/organisms/MainLayout";
 import Input from "@/components/atoms/Input";
@@ -7,7 +9,7 @@ import FormButton from "@/components/atoms/FormButton";
 import Button from "@/components/atoms/Button";
 
 import type { ProducerForm } from "../types";
-
+import { mockProducers } from "@/services/mocks/producerData";
 import {
   isValidCNPJ,
   isValidCPF,
@@ -26,9 +28,6 @@ import {
   FormActions,
   FormRow,
 } from "../styles/stylesProducerFormPage";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { mockProducers } from "@/services/mocks/producerData";
 
 export default function ProducerFormPage() {
   const [formData, setFormData] = useState<ProducerForm>({
@@ -83,7 +82,7 @@ export default function ProducerFormPage() {
     const onlyNumbers = (str: string) => str.replace(/\D/g, "");
 
     if (formData.name === "") {
-      toast.error("O nome do produtor não pode estar vazio");
+      toast.error("O campo Nome do produtor não pode estar vazio!");
       setNameInputError(true);
       return;
     }
@@ -114,9 +113,11 @@ export default function ProducerFormPage() {
 
     if (isEditing) {
       toast.success("Produtor editado!");
+      navigate("/producers");
       console.log("Editando produtor:", formData);
     } else {
       toast.success("Produtor cadastrado!");
+      navigate("/producers");
       console.log("Criando produtor:", formData);
     }
   };
@@ -140,11 +141,21 @@ export default function ProducerFormPage() {
 
   return (
     <MainLayout>
-      <PageTitle>Cadastrar Novo Produtor</PageTitle>
+      {!isEditing ? (
+        <PageTitle>Cadastrar Novo Produtor</PageTitle>
+      ) : (
+        <PageTitle>Editar Produtor</PageTitle>
+      )}
       <Container>
         <ContainerForm>
           <Form onSubmit={handleSubmit}>
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <FormRow>
                 <Input
                   label="Nome do Produtor"
@@ -205,7 +216,7 @@ export default function ProducerFormPage() {
                   onChange={handleChange}
                   variant="outlined"
                   error={emailInputError}
-                  helperText={emailInputError ? "Email inválido" : null}
+                  helperText={emailInputError ? "E-mail inválido" : null}
                 />
               </FormRow>
             </div>
