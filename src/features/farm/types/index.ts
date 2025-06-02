@@ -13,6 +13,7 @@ export interface Farm {
 
 export interface FarmTableRow {
   id: number;
+  producerId: number;
   producerName: string;
   name: string;
   city: string;

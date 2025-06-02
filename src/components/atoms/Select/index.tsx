@@ -13,6 +13,7 @@ const Select = <T extends string | number>({
   value,
   onChange,
   options,
+  disabled,
 }: SelectProps<T>) => {
   const handleChange = (event: SelectChangeEvent<T>) => {
     onChange({
@@ -31,6 +32,7 @@ const Select = <T extends string | number>({
         name={name}
         value={value}
         onChange={handleChange}
+        disabled={disabled}
       >
         {options.map((option) => (
           <MenuItem key={String(option.value)} value={option.value}>

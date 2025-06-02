@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addFarm, updateFarm } from "@/redux/slices/producerSlice";
+import type { RootState } from "@/redux/store";
 
 import MainLayout from "@/components/organisms/MainLayout";
 import Input from "@/components/atoms/Input";
@@ -8,7 +12,6 @@ import Select from "@/components/atoms/Select";
 import FormButton from "@/components/atoms/FormButton";
 import Button from "@/components/atoms/Button";
 
-import { mockProducers } from "@/services/mocks/producerData";
 import { brazilianStates } from "@/services/mocks/statesData";
 import type { FarmForm } from "../types";
 
@@ -34,8 +37,11 @@ export default function FarmFormPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [nameInputError, setNameInputError] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+
+  const producers = useSelector((state: RootState) => state.producer.producers);
 
   const handleChange = (
     e:
@@ -56,45 +62,16 @@ export default function FarmFormPage() {
       value = value === "" ? "" : Number(value);
     }
 
+    setNameInputError(false);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.producerId || formData.producerId === 0) {
-      toast.error("É obrigatório selecionar um produtor!");
-      return;
-    }
-
-    if (formData.name === "") {
-      toast.error("O campo Nome da Fazenda não pode estar vazio!");
-      setNameInputError(true);
-      return;
-    }
-
-    if (!formData.state) {
-      toast.error("É obrigatório selecionar um estado!");
-      return;
-    }
-
-    if (isEditing) {
-      toast.success("Fazenda editada!");
-      navigate("/farms");
-      console.log("Editando fazenda:", formData);
-    } else {
-      toast.success("Fazenda cadastrada!");
-      navigate("/farms");
-      console.log("Criando fazenda:", formData);
-    }
-  };
-
-  const producersOptions = useMemo(() => {
-    return mockProducers.map((producer) => ({
+  const producerOptions = useMemo(() => {
+    return producers.map((producer: any) => ({
       value: producer.id,
       label: producer.name,
     }));
-  }, []);
+  }, [producers]);
 
   const brazilianStateOptions = brazilianStates.map((state) => ({
     value: state.name,
@@ -105,28 +82,79 @@ export default function FarmFormPage() {
     if (id) {
       const farmId = Number(id);
 
-      const producer = mockProducers.find((p) =>
-        p.farms.some((f) => f.id === farmId)
+      const producer = producers.find((p: any) =>
+        p.farms.some((f: any) => f.id === farmId)
       );
 
-      if (producer) {
-        const farm = producer.farms.find((f) => f.id === farmId);
+      const farm = producer?.farms.find((f: any) => f.id === farmId);
 
-        if (farm) {
-          setIsEditing(true);
-          setFormData({
-            producerId: producer.id,
-            name: farm.name,
-            city: farm.city,
-            state: farm.state,
-            totalArea: farm.totalArea,
-            agricultableArea: farm.agricultableArea,
-            vegetationArea: farm.vegetationArea,
-          });
-        }
+      if (farm && producer) {
+        setIsEditing(true);
+        setFormData({
+          producerId: producer.id,
+          name: farm.name,
+          city: farm.city,
+          state: farm.state,
+          totalArea: farm.totalArea,
+          agricultableArea: farm.agricultableArea,
+          vegetationArea: farm.vegetationArea,
+        });
       }
     }
-  }, [id]);
+  }, [id, producers]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formData.producerId || formData.producerId === 0) {
+      toast.error("É obrigatório selecionar um produtor!");
+      return;
+    }
+
+    if (formData.name.trim() === "") {
+      toast.error("O campo Nome da Fazenda não pode estar vazio!");
+      setNameInputError(true);
+      return;
+    }
+
+    if (!formData.state) {
+      toast.error("É obrigatório selecionar um estado!");
+      return;
+    }
+
+    const currentProducer = producers.find(
+      (p: any) => p.id === formData.producerId
+    );
+
+    const farms = currentProducer?.farms ?? [];
+    const newFarmId =
+      farms.length > 0 ? Math.max(...farms.map((f: any) => f.id)) + 1 : 1;
+
+    if (isEditing && id) {
+      dispatch(
+        updateFarm({
+          producerId: formData.producerId,
+          farmId: Number(id),
+          updatedFarm: formData,
+        })
+      );
+      toast.success("Fazenda editada com sucesso!");
+    } else {
+      dispatch(
+        addFarm({
+          producerId: formData.producerId,
+          newFarm: {
+            ...formData,
+            id: newFarmId,
+            crops: [],
+          },
+        })
+      );
+      toast.success("Fazenda cadastrada com sucesso!");
+    }
+
+    navigate("/farms");
+  };
 
   return (
     <MainLayout>
@@ -149,9 +177,10 @@ export default function FarmFormPage() {
                 <Select
                   label="Produtor"
                   name="producerId"
-                  value={formData.producerId}
+                  value={String(formData.producerId)}
                   onChange={handleChange}
-                  options={producersOptions}
+                  options={producerOptions}
+                  disabled={isEditing}
                 />
               </FormRow>
               <FormRow>
@@ -173,7 +202,6 @@ export default function FarmFormPage() {
                   value={formData.city}
                   onChange={handleChange}
                   variant="outlined"
-                  required
                 />
               </FormRow>
               <FormRow>
@@ -193,7 +221,6 @@ export default function FarmFormPage() {
                   onChange={handleChange}
                   variant="outlined"
                   type="number"
-                  required
                 />
               </FormRow>
               <FormRow>
@@ -204,7 +231,6 @@ export default function FarmFormPage() {
                   onChange={handleChange}
                   variant="outlined"
                   type="number"
-                  required
                 />
               </FormRow>
               <FormRow>
@@ -215,7 +241,6 @@ export default function FarmFormPage() {
                   onChange={handleChange}
                   variant="outlined"
                   type="number"
-                  required
                 />
               </FormRow>
             </div>
@@ -230,7 +255,7 @@ export default function FarmFormPage() {
                 variant="contained"
                 label="Cancelar"
                 onClick={() => navigate("/farms")}
-                style={{ minWidth: "120px", backgroundColor: "	#f44336" }}
+                style={{ minWidth: "120px", backgroundColor: "#f44336" }}
               />
             </FormActions>
           </Form>

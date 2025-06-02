@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addProducer, editProducer } from "@/redux/slices/producerSlice";
 
 import MainLayout from "@/components/organisms/MainLayout";
 import Input from "@/components/atoms/Input";
@@ -9,7 +12,6 @@ import FormButton from "@/components/atoms/FormButton";
 import Button from "@/components/atoms/Button";
 
 import type { ProducerForm } from "../types";
-import { mockProducers } from "@/services/mocks/producerData";
 import {
   isValidCNPJ,
   isValidCPF,
@@ -38,12 +40,32 @@ export default function ProducerFormPage() {
     documentType: "CPF",
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [nameInputError, setNameInputError] = useState<boolean>(false);
-  const [documentInputError, setDocumentInputError] = useState<boolean>(false);
-  const [emailInputError, setEmailInputError] = useState<boolean>(false);
+  const [nameInputError, setNameInputError] = useState(false);
+  const [documentInputError, setDocumentInputError] = useState(false);
+  const [emailInputError, setEmailInputError] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
+
+  const producers = useSelector((state: any) => state.producer.producers);
+
+  useEffect(() => {
+    if (id) {
+      const idNumber = Number(id);
+      const producer = producers.find((p: any) => p.id === idNumber);
+      if (producer) {
+        setIsEditing(true);
+        setFormData({
+          name: producer.name,
+          document: producer.document,
+          phone: producer.phone || "",
+          email: producer.email || "",
+          documentType: producer.documentType || "CPF",
+        });
+      }
+    }
+  }, [id, producers]);
 
   const handleChange = (
     e:
@@ -111,33 +133,43 @@ export default function ProducerFormPage() {
       return;
     }
 
-    if (isEditing) {
-      toast.success("Produtor editado!");
-      navigate("/producers");
-      console.log("Editando produtor:", formData);
-    } else {
-      toast.success("Produtor cadastrado!");
-      navigate("/producers");
-      console.log("Criando produtor:", formData);
-    }
-  };
+    const currentProducer = producers.find((p: any) => p.id === Number(id));
 
-  useEffect(() => {
-    if (id) {
-      const idNumber = Number(id);
-      setIsEditing(true);
-      const producer = mockProducers.find((p) => p.id === idNumber);
-      if (producer) {
-        setFormData({
-          name: producer.name,
-          document: producer.document,
-          phone: producer.phone || "",
-          email: producer.email || "",
-          documentType: producer.documentType || "CPF",
-        });
-      }
+    if (isEditing && id) {
+      dispatch(
+        editProducer({
+          ...currentProducer,
+          id: Number(id),
+          name: formData.name,
+          document: formData.document,
+          phone: formData.phone,
+          email: formData.email,
+          documentType: formData.documentType,
+        })
+      );
+      toast.success("Produtor editado!");
+    } else {
+      const newId =
+        producers.length > 0
+          ? Math.max(...producers.map((p: any) => p.id)) + 1
+          : 1;
+
+      dispatch(
+        addProducer({
+          id: newId,
+          name: formData.name,
+          document: formData.document,
+          phone: formData.phone,
+          email: formData.email,
+          documentType: formData.documentType,
+          farms: [],
+        })
+      );
+      toast.success("Produtor cadastrado!");
     }
-  }, [id]);
+
+    navigate("/producers");
+  };
 
   return (
     <MainLayout>
@@ -231,7 +263,7 @@ export default function ProducerFormPage() {
                 variant="contained"
                 label="Cancelar"
                 onClick={() => navigate("/producers")}
-                style={{ minWidth: "120px", backgroundColor: "	#f44336" }}
+                style={{ minWidth: "120px", backgroundColor: "#f44336" }}
               />
             </FormActions>
           </Form>

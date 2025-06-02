@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addCrop, updateCrop } from "@/redux/slices/producerSlice";
+import type { RootState } from "@/redux/store";
 
 import MainLayout from "@/components/organisms/MainLayout";
 import Input from "@/components/atoms/Input";
@@ -8,7 +12,6 @@ import Select from "@/components/atoms/Select";
 import FormButton from "@/components/atoms/FormButton";
 import Button from "@/components/atoms/Button";
 
-import { mockProducers } from "@/services/mocks/producerData";
 import type { CropForm } from "../types";
 
 import { PageTitle } from "../styles/stylesCropListPage";
@@ -24,6 +27,7 @@ export default function CropFormPage() {
   const [formData, setFormData] = useState<CropForm>({
     producerId: 0,
     farmId: 0,
+    cropId: 0,
     culture: "",
     harvest: "",
   });
@@ -31,8 +35,11 @@ export default function CropFormPage() {
   const [cultureInputError, setCultureInputError] = useState<boolean>(false);
   const [harvestInputError, setHarvestInputError] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+
+  const producers = useSelector((state: RootState) => state.producer.producers);
 
   const handleChange = (
     e:
@@ -46,6 +53,12 @@ export default function CropFormPage() {
 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const crops = useMemo(() => {
+    const producer = producers.find((p) => p.id === formData.producerId);
+    const farm = producer?.farms.find((f) => f.id === formData.farmId);
+    return farm?.crops || [];
+  }, [formData.producerId, formData.farmId, producers]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,45 +76,70 @@ export default function CropFormPage() {
     }
 
     if (isEditing) {
+      dispatch(
+        updateCrop({
+          producerId: formData.producerId,
+          farmId: formData.farmId,
+          cropId: formData.cropId,
+          updatedCrop: {
+            culture: formData.culture,
+            harvest: formData.harvest,
+          },
+        })
+      );
       toast.success("Cultura editada!");
-      navigate("/crops");
-      console.log("Editando cultura:", formData);
     } else {
+      const maxId =
+        crops.length > 0 ? Math.max(...crops.map((c: any) => c.id)) : 0;
+
+      const newCrop = {
+        id: maxId + 1,
+        culture: formData.culture,
+        harvest: formData.harvest,
+      };
+
+      dispatch(
+        addCrop({
+          producerId: formData.producerId,
+          farmId: formData.farmId,
+          newCrop,
+        })
+      );
       toast.success("Cultura cadastrada!");
-      navigate("/crops");
-      console.log("Criando cultura:", formData);
     }
+
+    navigate("/crops");
   };
 
   const producersOptions = useMemo(() => {
-    return mockProducers.map((producer) => ({
+    return producers.map((producer: any) => ({
       value: producer.id,
       label: producer.name,
     }));
-  }, []);
+  }, [producers]);
 
   const farmOptions = useMemo(() => {
-    const selectedProducer = mockProducers.find(
-      (p) => p.id === formData.producerId
+    const selectedProducer = producers.find(
+      (p: any) => p.id === formData.producerId
     );
     return (
-      selectedProducer?.farms.map((farm) => ({
+      selectedProducer?.farms.map((farm: any) => ({
         value: farm.id,
         label: farm.name,
       })) ?? []
     );
-  }, [formData.producerId]);
+  }, [formData.producerId, producers]);
 
   useEffect(() => {
     if (id) {
       const farmId = Number(id);
 
-      const producer = mockProducers.find((p) =>
-        p.farms.some((f) => f.id === farmId)
+      const producer = producers.find((p: any) =>
+        p.farms.some((f: any) => f.id === farmId)
       );
 
       if (producer) {
-        const farm = producer.farms.find((f) => f.id === farmId);
+        const farm = producer.farms.find((f: any) => f.id === farmId);
         const crop = farm?.crops?.[0];
 
         if (farm && crop) {
@@ -109,13 +147,14 @@ export default function CropFormPage() {
           setFormData({
             producerId: producer.id,
             farmId: farm.id,
+            cropId: crop.id,
             culture: crop.culture,
             harvest: crop.harvest,
           });
         }
       }
     }
-  }, [id]);
+  }, [id, producers]);
 
   return (
     <MainLayout>
@@ -138,9 +177,10 @@ export default function CropFormPage() {
                 <Select
                   label="Produtor"
                   name="producerId"
-                  value={formData.producerId}
+                  value={String(formData.producerId)}
                   onChange={handleChange}
                   options={producersOptions}
+                  disabled={isEditing === true ? true : false}
                 />
               </FormRow>
               {farmOptions.length > 0 ? (
@@ -148,9 +188,10 @@ export default function CropFormPage() {
                   <Select
                     label="Fazenda"
                     name="farmId"
-                    value={formData.farmId}
+                    value={String(formData.farmId)}
                     onChange={handleChange}
                     options={farmOptions}
+                    disabled={isEditing === true ? true : false}
                   />
                 </FormRow>
               ) : null}
@@ -190,7 +231,7 @@ export default function CropFormPage() {
                 variant="contained"
                 label="Cancelar"
                 onClick={() => navigate("/crops")}
-                style={{ minWidth: "120px", backgroundColor: "	#f44336" }}
+                style={{ minWidth: "120px", backgroundColor: "#f44336" }}
               />
             </FormActions>
           </Form>

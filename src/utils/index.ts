@@ -3,6 +3,7 @@ import type { FarmTableRow } from "@/features/farm/types";
 import type { CropTableRow } from "@/features/crop/types";
 
 export interface FarmTableRowWithProducer extends FarmTableRow {
+  producerId: number;
   producerName: string;
 }
 
@@ -34,6 +35,7 @@ export function mapFarmsWithProducerToTableRows(
       agricultableArea: farm.agricultableArea,
       vegetationArea: farm.vegetationArea,
       totalCrops: farm.crops.length,
+      producerId: producer.id,
       producerName: producer.name,
     }))
   );
@@ -43,10 +45,12 @@ export function mapCropsToTableRows(producers: Producer[]): CropTableRow[] {
   return producers.flatMap((producer) =>
     producer.farms.flatMap((farm) =>
       farm.crops.map((crop) => ({
-        id: farm.id,
+        id: crop.id,
         harvest: crop.harvest,
         culture: crop.culture,
+        farmId: farm.id,
         farmName: farm.name,
+        producerId: producer.id,
         producerName: producer.name,
       }))
     )

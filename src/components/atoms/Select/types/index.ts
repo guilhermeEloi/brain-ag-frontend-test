@@ -9,4 +9,5 @@ export interface SelectProps<T = string | number> {
   value: T;
   onChange: (e: React.ChangeEvent<{ name?: string; value: T }>) => void;
   options: SelectOption<T>[];
+  disabled?: boolean;
 }
