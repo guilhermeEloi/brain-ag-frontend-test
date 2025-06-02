@@ -86,4 +86,4 @@ yarn test
 
 Este projeto está publicado e disponível online no Vercel.
 
-🔗 [Acesse o projeto aqui](https://brain-ag-frontend-test.vercel.app/dashboard)
+🔗 [Acesse o projeto aqui](https://brain-ag-frontend-test.vercel.app)
