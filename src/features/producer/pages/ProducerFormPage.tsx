@@ -78,6 +78,15 @@ export default function ProducerFormPage() {
     setDocumentInputError(false);
     setEmailInputError(false);
 
+    if (name === "documentType") {
+      setFormData((prev) => ({
+        ...prev,
+        documentType: value,
+        document: "",
+      }));
+      return;
+    }
+
     if (name === "document") {
       if (formData.documentType === "CPF") {
         value = maskCPF(value);
@@ -219,7 +228,7 @@ export default function ProducerFormPage() {
                   value={formData.document}
                   onChange={handleChange}
                   variant="outlined"
-                  length={14}
+                  length={formData.documentType === "CNPJ" ? 18 : 14}
                   error={documentInputError}
                   helperText={
                     documentInputError && formData.documentType === "CPF"
